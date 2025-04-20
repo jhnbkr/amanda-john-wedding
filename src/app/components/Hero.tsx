@@ -52,7 +52,7 @@ const ScrollToButton = ({ elementId, children }: ScrollToButtonProps) => {
         const element = document.getElementById(elementId);
         if (element) {
           element.focus();
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          element.scrollIntoView({ behavior: "smooth" });
         }
       }}
       className="px-8 py-2.5 text-sm uppercase tracking-[0.2em] border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer"
