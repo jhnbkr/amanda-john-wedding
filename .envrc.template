@@ -1,0 +1,7 @@
+export GOOGLE_CLIENT_EMAIL=
+export GOOGLE_PRIVATE_KEY=
+export GOOGLE_SHEET_ID=
+
+# Optional
+export GOOGLE_SHEET_NAME= # default=Responses
+export TZ=                # default=America/Toronto
