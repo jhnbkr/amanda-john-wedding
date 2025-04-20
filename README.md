@@ -17,7 +17,7 @@ This project submits data to Google Sheets and requires:
 
 ## Getting Started
 
-1. Install Node.js (via asdf or nvm):
+1. Install Node.js (via [asdf](https://asdf-vm.com/) or [nvm](https://github.com/nvm-sh/nvm)):
 
 ```bash
 # Option 1: Using asdf
