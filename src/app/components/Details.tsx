@@ -74,7 +74,7 @@ const DetailBlock = ({ id, title, children }: DetailBlockProps) => (
 
 const GetDirectionsButton = () => (
   <a
-    href="https://www.google.com/maps/dir/?api=1&destination=Farmhill+Weddings+2709+Dillon+Rd+Peterborough+ON"
+    href="https://www.google.com/maps/dir/?api=1&destination=2709+Dillon+Rd+Peterborough+ON"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Get directions to Farmhill Weddings on Google Maps"
