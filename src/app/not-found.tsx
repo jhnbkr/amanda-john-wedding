@@ -13,7 +13,7 @@ export default function NotFound() {
           href="/"
           className="inline-block mt-4 px-8 py-3 text-sm uppercase tracking-[0.2em] border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-colors"
         >
-          Back to the Main Event
+          Take Me Home
         </Link>
       </div>
     </div>
