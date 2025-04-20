@@ -1,6 +1,6 @@
 "use server";
 
-import { formatInTimeZone } from "date-fns-tz";
+import { format } from "date-fns";
 import { google } from "googleapis";
 import { v4 as uuidv4 } from "uuid";
 
@@ -14,7 +14,6 @@ const auth = new google.auth.JWT({
 
 const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID;
 const SHEET_NAME = process.env.GOOGLE_SHEET_NAME ?? "Responses";
-const TZ = process.env.TZ ?? "America/Toronto";
 
 export async function submitRSVP(guests: Guest[]) {
   const now = new Date();
@@ -27,8 +26,8 @@ export async function submitRSVP(guests: Guest[]) {
     guest.meal.entree ?? "N/A",
     guest.meal.dessert ?? "N/A",
     guest.notes ?? "",
-    formatInTimeZone(now, TZ, "yyyy-MM-dd"),
-    formatInTimeZone(now, TZ, "hh:mm:ss a"),
+    format(now, "yyyy-MM-dd"),
+    format(now, "hh:mm:ss a"),
     guest.id,
     session,
   ]);
