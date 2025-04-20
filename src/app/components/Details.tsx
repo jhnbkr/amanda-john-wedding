@@ -1,11 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 import IconMapPin from "../icons/IconMapPin";
 import SectionHeading from "./SectionHeading";
 
 export default function Details() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <section id="details" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-6">
@@ -42,8 +45,9 @@ export default function Details() {
                 src="/images/venue.jpg"
                 alt="Exterior view of the modern white barn-style venue at Farmhill Weddings, featuring tall black-framed windows, a sloped roof, and rustic wooden pillars at sunset."
                 fill
-                className="object-cover"
+                className={`object-cover transition-opacity duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}
                 priority
+                onLoad={() => setIsLoaded(true)}
               />
             </div>
           </div>

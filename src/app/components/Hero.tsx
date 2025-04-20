@@ -1,10 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 import scrollToSection from "../utils/scrollToSection";
 
 export default function Hero() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <div className="relative min-h-screen" role="region" aria-label="Wedding invitation hero section">
       <Image
@@ -13,8 +16,14 @@ export default function Hero() {
         fill
         className="object-cover"
         priority
+        onLoad={() => setIsLoaded(true)}
       />
       <div className="absolute inset-0 bg-black/25" />
+      <div
+        className={`absolute inset-0 bg-white transition-opacity duration-1000 ${
+          isLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+      />
 
       <div className="relative flex min-h-screen text-white">
         <div className="mx-auto max-w-2xl px-6 pt-[15vh] text-center">
