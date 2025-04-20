@@ -2,6 +2,7 @@
 
 import Details from "./components/Details";
 import FAQ from "./components/FAQ";
+import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import RSVP from "./components/RSVP";
 
@@ -12,6 +13,7 @@ export default function Home() {
       <Details />
       <FAQ />
       <RSVP />
+      <Footer />
     </main>
   );
 }
