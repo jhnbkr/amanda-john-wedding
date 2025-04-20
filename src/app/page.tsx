@@ -1,6 +1,7 @@
 "use client";
 
 import Details from "./components/Details";
+import FAQ from "./components/FAQ";
 import Hero from "./components/Hero";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
     <main>
       <Hero />
       <Details />
+      <FAQ />
     </main>
   );
 }
