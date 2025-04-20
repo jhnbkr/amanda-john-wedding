@@ -24,7 +24,7 @@ export default function MealChoiceField<T extends string>({
   disabled,
 }: MealChoiceFieldProps<T>) {
   return (
-    <fieldset>
+    <fieldset id={`guest-${id}-${field}`}>
       <legend className="block mb-2 text-sm font-medium text-gray-700">{label}</legend>
       <div className="flex flex-col gap-3">
         {options.map(option => (
@@ -34,18 +34,18 @@ export default function MealChoiceField<T extends string>({
           >
             <input
               type="radio"
-              name={`${field}-${id}`}
+              name={`guest-${id}-${field}`}
               checked={value === option}
               onChange={() => onChange(option as T)}
               disabled={disabled}
-              aria-describedby={error ? `${field}-${id}-error` : undefined}
+              aria-describedby={error ? `guest-${id}-${field}-error` : undefined}
             />
             <span>{option}</span>
           </label>
         ))}
       </div>
       {error && (
-        <p id={`${field}-${id}-error`} className="mt-1 text-sm text-red-600">
+        <p id={`guest-${id}-${field}-error`} className="mt-1 text-sm text-red-600">
           {error}
         </p>
       )}

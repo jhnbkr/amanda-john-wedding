@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import IconSpinner from "../../icons/IconSpinner";
-import scrollToSection from "../../utils/scrollToSection";
 import { GUEST_LIMIT } from "./constants";
 import GuestEntry from "./GuestEntry";
 import { Guest, GuestError } from "./types";
@@ -22,6 +21,18 @@ export default function RSVPForm({ onSubmit, isSubmitting, submitError }: RSVPFo
   useEffect(() => {
     setGuests([createGuest()]);
   }, []);
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      const firstError = errors[0];
+      const fieldId = `guest-${firstError.guest}-${firstError.field}`;
+      const element = document.getElementById(fieldId);
+      if (element) {
+        element.focus();
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+  }, [errors]);
 
   const createGuest = (): Guest => ({
     id: uuidv4(),
@@ -94,7 +105,6 @@ export default function RSVPForm({ onSubmit, isSubmitting, submitError }: RSVPFo
     const validationErrors = validateGuests(guests);
     setErrors(validationErrors);
     if (validationErrors.length > 0) {
-      scrollToSection("#rsvp");
       return;
     }
     await onSubmit(guests);

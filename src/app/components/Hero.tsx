@@ -3,8 +3,6 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import scrollToSection from "../utils/scrollToSection";
-
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -33,8 +31,8 @@ export default function Hero() {
           </header>
 
           <div className="flex gap-6 justify-center">
-            <ScrollToButton href="#details">Details</ScrollToButton>
-            <ScrollToButton href="#rsvp">RSVP</ScrollToButton>
+            <ScrollToButton elementId="details">Details</ScrollToButton>
+            <ScrollToButton elementId="rsvp">RSVP</ScrollToButton>
           </div>
         </div>
       </div>
@@ -43,14 +41,20 @@ export default function Hero() {
 }
 
 type ScrollToButtonProps = {
-  href: string;
+  elementId: string;
   children: React.ReactNode;
 };
 
-const ScrollToButton = ({ href, children }: ScrollToButtonProps) => {
+const ScrollToButton = ({ elementId, children }: ScrollToButtonProps) => {
   return (
     <button
-      onClick={() => scrollToSection(href)}
+      onClick={() => {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.focus();
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }}
       className="px-8 py-2.5 text-sm uppercase tracking-[0.2em] border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer"
       aria-label={`Scroll to ${children} section`}
     >

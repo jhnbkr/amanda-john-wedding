@@ -10,7 +10,7 @@ interface AttendingFieldProps {
 
 export default function AttendingField({ id, attending, onChange, error, disabled }: AttendingFieldProps) {
   return (
-    <fieldset>
+    <fieldset id={`guest-${id}-attending`}>
       <legend className="block mb-3 text-sm font-medium text-gray-700">Will you attend?</legend>
       <div className="flex gap-6" role="radiogroup">
         {[
@@ -23,18 +23,18 @@ export default function AttendingField({ id, attending, onChange, error, disable
           >
             <input
               type="radio"
-              name={`attending-${id}`}
+              name={`guest-${id}-attending`}
               checked={attending === opt.value}
               onChange={() => onChange(opt.value)}
               disabled={disabled}
-              aria-describedby={error ? `attending-${id}-error` : undefined}
+              aria-describedby={error ? `guest-${id}-attending-error` : undefined}
             />
             <span>{opt.label}</span>
           </label>
         ))}
       </div>
       {error && (
-        <p id={`attending-${id}-error`} className="mt-1 text-sm text-red-600">
+        <p id={`guest-${id}-attending-error`} className="mt-1 text-sm text-red-600">
           {error}
         </p>
       )}
