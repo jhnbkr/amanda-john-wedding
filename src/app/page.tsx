@@ -3,6 +3,7 @@
 import Details from "./components/Details";
 import FAQ from "./components/FAQ";
 import Hero from "./components/Hero";
+import RSVP from "./components/RSVP";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <Details />
       <FAQ />
+      <RSVP />
     </main>
   );
 }
