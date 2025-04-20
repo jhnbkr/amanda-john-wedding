@@ -14,7 +14,7 @@ const fontSerif = Charm({
 });
 
 export const metadata: Metadata = {
-  title: "Amanda & John - July 26, 2025",
+  title: "Amanda & John",
   description: "Join us for our wedding celebration",
 };
 
