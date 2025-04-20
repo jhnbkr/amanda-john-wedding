@@ -1,13 +1,12 @@
-import { APPETIZERS, DESSERTS, ENTREES } from "./constants";
-
-export type Appetizer = (typeof APPETIZERS)[number];
-export type Entree = (typeof ENTREES)[number];
-export type Dessert = (typeof DESSERTS)[number];
+export interface MenuItem {
+  title: string;
+  subtext?: string;
+}
 
 export interface MealChoice {
-  appetizer?: Appetizer;
-  entree?: Entree;
-  dessert?: Dessert;
+  appetizer?: string;
+  entree?: string;
+  dessert?: string;
 }
 
 export interface Guest {

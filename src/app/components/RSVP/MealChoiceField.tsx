@@ -1,19 +1,19 @@
 "use client";
 
-import { MealChoice } from "./types";
+import { MealChoice, MenuItem } from "./types";
 
-interface MealChoiceFieldProps<T extends string> {
+interface MealChoiceFieldProps {
   id: string;
   field: keyof MealChoice;
   label: string;
-  options: readonly T[];
-  value?: T;
-  onChange: (value: T) => void;
+  options: MenuItem[];
+  value?: string;
+  onChange: (value: string) => void;
   error?: string;
   disabled?: boolean;
 }
 
-export default function MealChoiceField<T extends string>({
+export default function MealChoiceField({
   id,
   field,
   label,
@@ -22,25 +22,29 @@ export default function MealChoiceField<T extends string>({
   onChange,
   error,
   disabled,
-}: MealChoiceFieldProps<T>) {
+}: MealChoiceFieldProps) {
   return (
     <fieldset id={`guest-${id}-${field}`}>
       <legend className="block mb-2 text-sm font-medium text-gray-700">{label}</legend>
       <div className="flex flex-col gap-3">
         {options.map(option => (
           <label
-            key={option}
-            className={`flex items-center gap-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
+            key={option.title}
+            className={`flex items-start gap-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
           >
             <input
               type="radio"
               name={`guest-${id}-${field}`}
-              checked={value === option}
-              onChange={() => onChange(option as T)}
+              checked={value === option.title}
+              onChange={() => onChange(option.title)}
               disabled={disabled}
               aria-describedby={error ? `guest-${id}-${field}-error` : undefined}
+              className="mt-1"
             />
-            <span>{option}</span>
+            <div>
+              <div>{option.title}</div>
+              {option.subtext && <div className="text-sm text-gray-500">{option.subtext}</div>}
+            </div>
           </label>
         ))}
       </div>
