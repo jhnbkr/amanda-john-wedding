@@ -1,3 +1,5 @@
+"use client";
+
 import { MealChoice } from "./types";
 
 interface MealChoiceFieldProps<T extends string> {

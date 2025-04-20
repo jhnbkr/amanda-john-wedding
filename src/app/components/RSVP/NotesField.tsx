@@ -1,3 +1,5 @@
+"use client";
+
 import { MAX_NOTES_LENGTH } from "./constants";
 
 interface NotesFieldProps {

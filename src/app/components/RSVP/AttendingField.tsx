@@ -1,3 +1,5 @@
+"use client";
+
 interface AttendingFieldProps {
   id: string;
   attending?: boolean;

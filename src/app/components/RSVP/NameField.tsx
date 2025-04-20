@@ -1,3 +1,5 @@
+"use client";
+
 import { MAX_NAME_LENGTH } from "./constants";
 
 interface NameFieldProps {

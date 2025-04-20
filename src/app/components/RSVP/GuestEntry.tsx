@@ -1,3 +1,5 @@
+"use client";
+
 import AttendingField from "./AttendingField";
 import MealChoiceField from "./MealChoiceField";
 import NameField from "./NameField";
