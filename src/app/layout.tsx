@@ -16,6 +16,7 @@ const fontSerif = Charm({
 export const metadata: Metadata = {
   title: "Amanda & John",
   description: "Join us for our wedding celebration",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
 };
 
 export default function RootLayout({
