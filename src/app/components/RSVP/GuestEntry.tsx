@@ -5,8 +5,7 @@ import MealChoiceField from "./MealChoiceField";
 import NameField from "./NameField";
 import NotesField from "./NotesField";
 import { APPETIZERS, DESSERTS, ENTREES } from "./constants";
-import { useGuestErrors } from "./hooks";
-import { Guest, GuestError } from "./types";
+import { Guest } from "./types";
 
 interface GuestEntryProps {
   index: number;
@@ -14,12 +13,11 @@ interface GuestEntryProps {
   updateGuest: (guest: Partial<Guest>) => void;
   removeGuest?: () => void;
   disabled?: boolean;
-  errors: GuestError[];
+  errorMap: Record<string, Record<string, string>>;
 }
 
-export default function GuestEntry({ index, guest, updateGuest, removeGuest, disabled, errors }: GuestEntryProps) {
+export default function GuestEntry({ index, guest, updateGuest, removeGuest, disabled, errorMap }: GuestEntryProps) {
   const { id, name, attending, meal, notes } = guest;
-  const errorMap = useGuestErrors(errors);
   const showMealChoices = attending === true;
 
   return (

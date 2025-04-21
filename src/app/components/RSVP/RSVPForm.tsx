@@ -6,7 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 import IconSpinner from "../../icons/IconSpinner";
 import { GUEST_LIMIT } from "./constants";
 import GuestEntry from "./GuestEntry";
-import { Guest, GuestError } from "./types";
+import { Guest } from "./types";
+import { useFormValidation } from "./hooks";
 
 interface RSVPFormProps {
   onSubmit: (guests: Guest[]) => Promise<void>;
@@ -16,23 +17,27 @@ interface RSVPFormProps {
 
 export default function RSVPForm({ onSubmit, isSubmitting, submitError }: RSVPFormProps) {
   const [guests, setGuests] = useState<Guest[]>([]);
-  const [errors, setErrors] = useState<GuestError[]>([]);
+  const { errorMap, validate, clearError } = useFormValidation();
 
   useEffect(() => {
     setGuests([createGuest()]);
   }, []);
 
   useEffect(() => {
-    if (errors.length > 0) {
-      const firstError = errors[0];
-      const fieldId = `guest-${firstError.guest}-${firstError.field}`;
-      const element = document.getElementById(fieldId);
-      if (element) {
-        element.focus();
-        element.scrollIntoView({ behavior: "smooth", block: "center" });
+    const firstError = Object.entries(errorMap)[0];
+    if (firstError) {
+      const [guestId, fields] = firstError;
+      const firstField = Object.keys(fields)[0];
+      if (firstField) {
+        const fieldId = `guest-${guestId}-${firstField}`;
+        const element = document.getElementById(fieldId);
+        if (element) {
+          element.focus();
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
       }
     }
-  }, [errors]);
+  }, [errorMap]);
 
   const createGuest = (): Guest => ({
     id: uuidv4(),
@@ -56,54 +61,20 @@ export default function RSVPForm({ onSubmit, isSubmitting, submitError }: RSVPFo
 
   const updateGuest = (id: string, update: Partial<Guest>) => {
     setGuests((prev: Guest[]) => prev.map((guest: Guest) => (guest.id === id ? { ...guest, ...update } : guest)));
-  };
-
-  const validateGuests = (guests: Guest[]): GuestError[] => {
-    const errors: GuestError[] = [];
-    for (const guest of guests) {
-      const { id, name, attending, meal } = guest;
-
-      if (!name.trim()) {
-        errors.push({ guest: id, field: "name", message: "Name is required." });
-      }
-
-      if (attending === undefined)
-        errors.push({
-          guest: id,
-          field: "attending",
-          message: "Please select yes or no.",
+    Object.keys(update).forEach(field => {
+      if (field === "meal") {
+        Object.keys(update.meal || {}).forEach(mealField => {
+          clearError(id, mealField);
         });
-
-      if (attending) {
-        if (!meal.appetizer)
-          errors.push({
-            guest: id,
-            field: "appetizer",
-            message: "Select an appetizer.",
-          });
-
-        if (!meal.entree)
-          errors.push({
-            guest: id,
-            field: "entree",
-            message: "Select an entrée.",
-          });
-
-        if (!meal.dessert)
-          errors.push({
-            guest: id,
-            field: "dessert",
-            message: "Select a dessert.",
-          });
+      } else {
+        clearError(id, field);
       }
-    }
-    return errors;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const validationErrors = validateGuests(guests);
-    setErrors(validationErrors);
+    const validationErrors = validate(guests);
     if (validationErrors.length > 0) {
       return;
     }
@@ -120,7 +91,7 @@ export default function RSVPForm({ onSubmit, isSubmitting, submitError }: RSVPFo
             key={guest.id}
             index={index}
             guest={guest}
-            errors={errors}
+            errorMap={errorMap}
             updateGuest={updated => updateGuest(guest.id, updated)}
             removeGuest={guests.length > 1 ? () => removeGuest(guest.id) : undefined}
             disabled={isSubmitting}
