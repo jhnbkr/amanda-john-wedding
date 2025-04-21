@@ -94,7 +94,9 @@ const RemoveGuestButton = ({ index, removeGuest, disabled }: RemoveGuestButtonPr
     type="button"
     onClick={() => confirm("Are you sure?") && removeGuest()}
     disabled={disabled}
-    className="absolute top-6 right-6 text-sm text-red-600 hover:text-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    className="absolute top-6 right-6 text-sm text-red-600 hover:text-red-700 transition-colors
+      disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
+      focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 p-2 rounded-md"
     aria-label={`Remove Guest ${index + 1}`}
   >
     Remove

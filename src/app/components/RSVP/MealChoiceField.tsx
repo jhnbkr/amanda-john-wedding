@@ -26,11 +26,13 @@ export default function MealChoiceField({
   return (
     <fieldset id={`guest-${id}-${field}`}>
       <legend className="block mb-2 text-sm font-medium text-gray-700">{label}</legend>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3" role="radiogroup">
         {options.map(option => (
           <label
             key={option.title}
-            className={`flex items-start gap-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
+            className={`flex items-start gap-2 p-2 rounded-md
+              ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}
+              focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2`}
           >
             <input
               type="radio"
@@ -39,9 +41,9 @@ export default function MealChoiceField({
               onChange={() => onChange(option.title)}
               disabled={disabled}
               aria-describedby={error ? `guest-${id}-${field}-error` : undefined}
-              className="mt-1"
+              className="mt-0.5 accent-gray-900 focus:outline-none focus:ring-0 focus:ring-offset-0"
             />
-            <div>
+            <div className="flex-1">
               <div>{option.title}</div>
               {option.subtext && <div className="text-sm text-gray-500">{option.subtext}</div>}
             </div>

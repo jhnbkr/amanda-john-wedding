@@ -145,7 +145,9 @@ const AddGuestButton = ({ addGuest, isSubmitting }: AddGuestButtonProps) => (
     type="button"
     onClick={addGuest}
     disabled={isSubmitting}
-    className="mx-auto block text-sm text-gray-900 hover:text-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+    className="mx-auto block p-4 rounded-md text-sm text-gray-900 hover:text-gray-600 transition-colors
+      disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
+      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
   >
     + Add another guest
   </button>

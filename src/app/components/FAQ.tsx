@@ -62,15 +62,16 @@ const QuestionItem = ({ id, title, answer }: Question) => {
   const buttonId = `${contentId}-button`;
 
   return (
-    <div className="border-b border-gray-200 py-6">
+    <div className="border-b border-gray-200 py-2">
       <button
         id={buttonId}
         aria-expanded={isOpen}
         aria-controls={contentId}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-between items-center w-full text-left cursor-pointer"
+        className="flex justify-between items-center w-full text-left cursor-pointer py-4 px-4 rounded-md
+          transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       >
-        <span className="text-lg text-gray-900 hover:text-gray-600 transition-colors">{title}</span>
+        <span className="text-lg text-gray-900 group-hover:text-gray-600 transition-colors">{title}</span>
         <IconChevronDown
           className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
         />
@@ -85,7 +86,7 @@ const QuestionItem = ({ id, title, answer }: Question) => {
           maxHeight: isOpen ? `${contentRef.current?.scrollHeight}px` : "0px",
         }}
       >
-        <div className="pt-4 text-gray-600 leading-relaxed">{answer}</div>
+        <div className="px-4 pb-4 pt-2 text-gray-600 leading-relaxed">{answer}</div>
       </div>
     </div>
   );

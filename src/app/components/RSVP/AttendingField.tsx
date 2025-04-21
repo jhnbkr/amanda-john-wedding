@@ -19,7 +19,9 @@ export default function AttendingField({ id, attending, onChange, error, disable
         ].map(opt => (
           <label
             key={opt.label}
-            className={`flex items-center gap-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
+            className={`flex items-center gap-2 p-2 rounded-md
+              ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}
+              focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2`}
           >
             <input
               type="radio"
@@ -28,6 +30,7 @@ export default function AttendingField({ id, attending, onChange, error, disable
               onChange={() => onChange(opt.value)}
               disabled={disabled}
               aria-describedby={error ? `guest-${id}-attending-error` : undefined}
+              className="mt-0.5 accent-gray-900 focus:outline-none focus:ring-0 focus:ring-offset-0"
             />
             <span>{opt.label}</span>
           </label>
