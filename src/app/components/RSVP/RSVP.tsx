@@ -28,7 +28,7 @@ export default function RSVP() {
   };
 
   return (
-    <section id="rsvp" className="py-24 bg-white">
+    <section id="rsvp" className="py-24 bg-white scroll-mt-24">
       <div className="max-w-3xl mx-auto px-6">
         <SectionHeading>RSVP</SectionHeading>
 

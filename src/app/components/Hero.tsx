@@ -51,9 +51,9 @@ const ScrollToButton = ({ elementId, children }: ScrollToButtonProps) => {
       onClick={() => {
         const element = document.getElementById(elementId);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-          element.setAttribute("tabindex", "0");
-          element.focus();
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          element.setAttribute("tabindex", "-1");
+          element.focus({ preventScroll: true });
         }
       }}
       className="px-8 py-2.5 text-sm uppercase tracking-[0.2em] border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors cursor-pointer"
