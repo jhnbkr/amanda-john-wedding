@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
+
 import AttendingField from "./AttendingField";
+import ConfirmationModal from "./ConfirmationModal";
 import MealChoiceField from "./MealChoiceField";
 import NameField from "./NameField";
 import NotesField from "./NotesField";
@@ -19,13 +22,27 @@ interface GuestEntryProps {
 export default function GuestEntry({ index, guest, updateGuest, removeGuest, disabled, errorMap }: GuestEntryProps) {
   const { id, name, attending, meal, notes } = guest;
   const showMealChoices = attending === true;
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
 
   return (
     <div className="relative p-6 border border-gray-200 rounded-lg" aria-labelledby={`guest-${id}-heading`}>
       <h3 id={`guest-${id}-heading`} className="font-light text-lg mb-6">
         Guest {index + 1}
       </h3>
-      {removeGuest && <RemoveGuestButton index={index} removeGuest={removeGuest} disabled={disabled} />}
+      {removeGuest && (
+        <>
+          <RemoveGuestButton index={index} name={name} onClick={() => setShowRemoveModal(true)} disabled={disabled} />
+          <ConfirmationModal
+            isOpen={showRemoveModal}
+            onClose={() => setShowRemoveModal(false)}
+            onConfirm={removeGuest}
+            title="Remove Guest"
+            message="This action cannot be undone."
+            confirmText="Remove"
+            cancelText="Cancel"
+          />
+        </>
+      )}
       <div className="space-y-6">
         <NameField
           id={id}
@@ -83,19 +100,20 @@ export default function GuestEntry({ index, guest, updateGuest, removeGuest, dis
 
 interface RemoveGuestButtonProps {
   index: number;
-  removeGuest: () => void;
+  name: string;
+  onClick: () => void;
   disabled?: boolean;
 }
 
-const RemoveGuestButton = ({ index, removeGuest, disabled }: RemoveGuestButtonProps) => (
+const RemoveGuestButton = ({ index, name, onClick, disabled }: RemoveGuestButtonProps) => (
   <button
     type="button"
-    onClick={() => confirm("Are you sure?") && removeGuest()}
+    onClick={onClick}
     disabled={disabled}
     className="absolute top-6 right-6 text-sm text-red-600 hover:text-red-700 transition-colors
       disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
       focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 p-2 rounded-md"
-    aria-label={`Remove Guest ${index + 1}`}
+    aria-label={`Remove ${name || `Guest ${index + 1}`}`}
   >
     Remove
   </button>
