@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import IconSpinner from "../../icons/IconSpinner";
@@ -23,7 +23,7 @@ export default function RSVPForm({ onSubmit, isSubmitting, submitError }: RSVPFo
     setGuests([createGuest()]);
   }, []);
 
-  useEffect(() => {
+  const focusFirstError = useCallback(() => {
     const firstError = Object.entries(errorMap)[0];
     if (firstError) {
       const [guestId, fields] = firstError;
@@ -49,7 +49,16 @@ export default function RSVPForm({ onSubmit, isSubmitting, submitError }: RSVPFo
 
   const addGuest = () => {
     if (guests.length < GUEST_LIMIT) {
-      setGuests((prev: Guest[]) => [...prev, createGuest()]);
+      const newGuest = createGuest();
+      setGuests(prev => [...prev, newGuest]);
+      setTimeout(() => {
+        const fieldId = `guest-${newGuest.id}-name`;
+        const element = document.getElementById(fieldId);
+        if (element) {
+          element.focus();
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 0);
     }
   };
 
@@ -76,6 +85,7 @@ export default function RSVPForm({ onSubmit, isSubmitting, submitError }: RSVPFo
     e.preventDefault();
     const validationErrors = validate(guests);
     if (validationErrors.length > 0) {
+      focusFirstError();
       return;
     }
     await onSubmit(guests);
