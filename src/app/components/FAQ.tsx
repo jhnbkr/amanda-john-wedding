@@ -147,7 +147,7 @@ const QUESTIONS: Question[] = [
   },
   {
     id: "hotel-information",
-    title: "Where Should I Stay?",
+    title: "Where should I stay?",
     answer: (
       <>
         <p>
