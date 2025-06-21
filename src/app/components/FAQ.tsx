@@ -130,10 +130,10 @@ const QUESTIONS: Question[] = [
         <p>A (fancy) school bus named Pearl will be available for transportation between the hotel and venue.</p>
         <div className="mt-2">
           <p>
-            <span className="font-medium">Hotel Departures:</span> 2:45 PM and 3:15 PM
+            <span className="font-medium">Hotel Departures:</span> 2:40 PM and 3:10 PM
           </p>
           <p>
-            <span className="font-medium">Venue Departures:</span> 10:00 PM, 12:00 AM, and 1:30 AM
+            <span className="font-medium">Venue Departures:</span> 10:30 PM, 12:00 AM, and 1:30 AM
           </p>
         </div>
 
